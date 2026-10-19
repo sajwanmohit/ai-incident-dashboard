@@ -43,7 +43,7 @@ export default function CreateIncidentPage() {
   };
 
   return <div className="page-view">
-    <PageHeading eyebrow="OPERATIONS / INTAKE" title="Create an incident" description="Submit a production event to the analysis pipeline and review the returned model assessment." />
+    <PageHeading eyebrow="OPERATIONS / INTAKE" title="Create an incident" description="Submit a production event and wait for the analysis service to return its assessment." />
     <div className="create-layout">
       <form className="panel create-form" onSubmit={(event) => void submit(event)}>
         <div className="form-section-heading"><span className="form-section-icon"><FilePlus2 size={16} /></span><div><h3>Incident details</h3><p>Provide the source event information</p></div></div>
@@ -56,14 +56,15 @@ export default function CreateIncidentPage() {
           <label className="form-field form-field-wide"><span>Description <i>*</i></span><textarea required rows={5} maxLength={4000} value={form.description} onChange={(event) => update("description", event.target.value)} placeholder="Describe the symptoms, impact, and relevant context…" /><small>Include relevant metrics or observed behavior. {form.description.length}/4000</small></label>
           <label className="form-field form-field-wide"><span>Event timestamp <i>*</i></span><input required type="datetime-local" value={form.timestamp} onChange={(event) => update("timestamp", event.target.value)} /></label>
         </div>
-        <div className="form-footer"><span><ShieldCheck size={15} />Payload is sent securely to your configured API.</span><button className="button button-primary" type="submit" disabled={submitting}>{submitting ? <><LoaderCircle className="spin" size={16} />Submitting…</> : <><Send size={15} />Submit for analysis</>}</button></div>
+        <div className="form-footer"><span><ShieldCheck size={15} />The request stays open until analysis is complete.</span><button className="button button-primary" type="submit" disabled={submitting}>{submitting ? <><LoaderCircle className="spin" size={16} />Waiting for analysis…</> : <><Send size={15} />Submit for analysis</>}</button></div>
         {error && <div className="error-banner form-error"><CircleAlert size={16} /><span>{error}</span></div>}
+        {submitting && <div className="processing-result"><LoaderCircle className="spin" size={17} /><span>Incident submitted. Waiting for the backend to finish the AI analysis and return its response…</span></div>}
       </form>
       <aside className="create-aside">
-        <section className="panel pipeline-card"><span className="eyebrow">WHAT HAPPENS NEXT</span><h3>Your event's journey</h3><p>After submission, your incident moves through the analysis pipeline.</p><div className="journey-list"><div><span>1</span><div><strong>HTTP intake</strong><small>Payload is validated and accepted</small></div></div><div><span>2</span><div><strong>Kafka publish</strong><small>Event is queued for processing</small></div></div><div><span>3</span><div><strong>AI analysis</strong><small>Severity, cause, and actions generated</small></div></div><div><span>4</span><div><strong>Structured response</strong><small>Analysis returned to this dashboard</small></div></div></div></section>
+        <section className="panel pipeline-card"><span className="eyebrow">WHAT HAPPENS NEXT</span><h3>Your event's journey</h3><p>The request completes after analysis has been generated.</p><div className="journey-list"><div><span>1</span><div><strong>HTTP intake</strong><small>Payload is validated and accepted</small></div></div><div><span>2</span><div><strong>Kafka publish</strong><small>Event is queued for processing</small></div></div><div><span>3</span><div><strong>AI analysis</strong><small>Severity, cause, and actions generated</small></div></div><div><span>4</span><div><strong>Structured response</strong><small>Analysis returned before submission completes</small></div></div></div></section>
         <div className="privacy-note"><ShieldCheck size={16} /><p>Submit only operational context that your organization permits sending to its configured analysis service.</p></div>
       </aside>
     </div>
-    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident accepted and analyzed</strong><p>{result.incidentId} returned successfully by the backend.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`}>View insights →</Link></div><AnalysisSummaryCard analysis={result.analysis} /></section>}
+    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident analyzed</strong><p>{result.incidentId} and its analysis were returned by the backend.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`}>View insights →</Link></div><AnalysisSummaryCard analysis={result.analysis} /></section>}
   </div>;
 }
