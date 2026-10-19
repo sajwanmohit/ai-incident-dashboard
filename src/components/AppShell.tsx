@@ -1,10 +1,11 @@
 import {
-  Activity, CircleHelp, Command, FilePlus2,
+  Activity, CircleHelp, FilePlus2, Moon, Sun,
   Menu, Sparkles, X,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useIncidentAnalysis } from "../contexts/useIncidentAnalysis";
+import { useTheme } from "../contexts/useTheme";
 
 const navigation = [
   { to: "/logs", label: "Flow monitoring", icon: Activity, end: true },
@@ -15,6 +16,7 @@ const navigation = [
 export default function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { sessionError } = useIncidentAnalysis();
+  const { theme, toggleTheme } = useTheme();
   return (
     <div className="app-shell">
       <div className={`sidebar-overlay ${menuOpen ? "is-open" : ""}`} onClick={() => setMenuOpen(false)} />
@@ -41,7 +43,7 @@ export default function AppShell() {
           <div className="breadcrumb"><strong>Incident Analyser</strong></div>
           <div className="topbar-actions">
             <span className="connection-badge connection-live"><span />LIVE API</span>
-            <button className="keyboard-hint" aria-label="Keyboard shortcuts"><Command size={13} /><span>K</span></button>
+            <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>{theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}<span>{theme === "dark" ? "Light" : "Dark"}</span></button>
             <div className="top-avatar">MS</div>
           </div>
         </header>

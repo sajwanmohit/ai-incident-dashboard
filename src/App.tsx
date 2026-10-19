@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import AppShell from "./components/AppShell";
 import { IncidentAnalysisProvider } from "./contexts/IncidentAnalysisProvider";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 const router = createBrowserRouter([
   {
@@ -21,5 +22,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <IncidentAnalysisProvider><RouterProvider router={router} /></IncidentAnalysisProvider>;
+  return <ThemeProvider><IncidentAnalysisProvider><RouterProvider router={router} /></IncidentAnalysisProvider></ThemeProvider>;
 }
