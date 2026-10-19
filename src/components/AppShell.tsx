@@ -1,15 +1,13 @@
 import {
   Activity, ChevronDown, CircleHelp, Command, FilePlus2,
-  LayoutDashboard, Menu, Radio, Sparkles, X,
+  Menu, Sparkles, X,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
-  { to: "/incidents", label: "Incident monitor", icon: Radio },
-  { to: "/logs", label: "Flow monitoring", icon: Activity },
-  { to: "/create", label: "Create incident", icon: FilePlus2 },
+  { to: "/logs", label: "Flow monitoring", icon: Activity, end: true },
+  { to: "/create", label: "Create incident", icon: FilePlus2, end: true },
   { to: "/insights", label: "Analysis insights", icon: Sparkles },
 ];
 

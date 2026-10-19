@@ -27,8 +27,7 @@ The browser connects directly to the configured backend origin. Configure Spring
 
 ## Features
 
-- Overview metrics, incident activity trend, severity distribution, and recent incident drawer
-- Searchable, filterable incident monitor sorted newest first; CSV export
+- Compact navigation focused on flow monitoring, incident creation, and analysis insights
 - Full incident details with original payload JSON, model analysis, and processing timeline
 - Browser-session flow activity with INFO/WARN/ERROR filtering and an API → Kafka → AI → response architecture illustration
 - Incident submission form with loading, error, success, and returned analysis states
