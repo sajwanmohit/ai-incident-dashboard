@@ -5,6 +5,7 @@ import { incidentApi } from "../api/incidents";
 import AnalysisSummaryCard from "../components/AnalysisSummaryCard";
 import PageHeading from "../components/PageHeading";
 import type { IncidentCreatePayload, IncidentEvent, IncidentSeverity } from "../types/incident";
+import { recordSessionIncidentActivity } from "../utils/sessionIncidentActivity";
 
 function currentLocalDateTime() {
   const date = new Date();
@@ -15,6 +16,7 @@ function currentLocalDateTime() {
 export default function CreateIncidentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [activityWarning, setActivityWarning] = useState("");
   const [result, setResult] = useState<IncidentEvent | null>(null);
   const [form, setForm] = useState<IncidentCreatePayload>({
     incidentId: "",
@@ -31,10 +33,21 @@ export default function CreateIncidentPage() {
     event.preventDefault();
     setSubmitting(true);
     setError("");
+    setActivityWarning("");
     setResult(null);
+    const submittedAt = new Date().toISOString();
     try {
       const incident = await incidentApi.create({ ...form, timestamp: new Date(form.timestamp).toISOString() });
       setResult(incident);
+      try {
+        recordSessionIncidentActivity({
+          incident,
+          submittedAt,
+          responseReceivedAt: new Date().toISOString(),
+        });
+      } catch (cause) {
+        setActivityWarning(cause instanceof Error ? cause.message : "Unable to save browser-session flow activity.");
+      }
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Incident submission failed.");
     } finally {
@@ -58,6 +71,7 @@ export default function CreateIncidentPage() {
         </div>
         <div className="form-footer"><span><ShieldCheck size={15} />The request stays open until analysis is complete.</span><button className="button button-primary" type="submit" disabled={submitting}>{submitting ? <><LoaderCircle className="spin" size={16} />Waiting for analysis…</> : <><Send size={15} />Submit for analysis</>}</button></div>
         {error && <div className="error-banner form-error"><CircleAlert size={16} /><span>{error}</span></div>}
+        {activityWarning && <div className="error-banner form-error"><CircleAlert size={16} /><span>Incident analysis succeeded, but Flow Monitoring could not save it: {activityWarning}</span></div>}
         {submitting && <div className="processing-result"><LoaderCircle className="spin" size={17} /><span>Incident submitted. Waiting for the backend to finish the AI analysis and return its response…</span></div>}
       </form>
       <aside className="create-aside">
