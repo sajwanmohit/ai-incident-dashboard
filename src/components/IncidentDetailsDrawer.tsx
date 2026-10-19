@@ -1,6 +1,7 @@
 import { ChevronRight, Clock3, Copy, ExternalLink, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useIncidentAnalysis } from "../contexts/useIncidentAnalysis";
 import type { IncidentEvent } from "../types/incident";
 import { formatDateTime } from "../utils/format";
 import AnalysisSummaryCard from "./AnalysisSummaryCard";
@@ -15,6 +16,7 @@ const timelineSteps = [
 
 export default function IncidentDetailsDrawer({ incident, onClose }: { incident: IncidentEvent | null; onClose: () => void }) {
   const [copied, setCopied] = useState(false);
+  const { recordIncident } = useIncidentAnalysis();
   if (!incident) return null;
 
   const copyPayload = async () => {
@@ -42,7 +44,7 @@ export default function IncidentDetailsDrawer({ incident, onClose }: { incident:
             <pre>{JSON.stringify(incident.originalPayload, null, 2)}</pre>
           </section>
         </div>
-        <div className="drawer-footer"><Link className="button button-primary full-width" to={`/insights/${encodeURIComponent(incident.incidentId)}`} onClick={onClose}>Open full analysis <ExternalLink size={15} /></Link></div>
+        <div className="drawer-footer"><Link className="button button-primary full-width" to={`/insights/${encodeURIComponent(incident.incidentId)}`} onClick={() => { recordIncident(incident); onClose(); }}>Open full analysis <ExternalLink size={15} /></Link></div>
       </aside>
     </div>
   );

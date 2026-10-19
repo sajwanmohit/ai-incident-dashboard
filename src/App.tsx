@@ -1,14 +1,16 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import AppShell from "./components/AppShell";
+import { IncidentAnalysisProvider } from "./contexts/IncidentAnalysisProvider";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppShell />,
-    hydrateFallbackElement: <div className="app-startup"><span className="spinner" />Loading Signal…</div>,
+    hydrateFallbackElement: <div className="app-startup"><span className="spinner" />Loading Incident Analyser…</div>,
     children: [
-      { index: true, lazy: async () => ({ Component: (await import("./pages/OverviewPage")).default }) },
-      { path: "incidents", lazy: async () => ({ Component: (await import("./pages/MonitorPage")).default }) },
+      { index: true, element: <Navigate to="/logs" replace /> },
+      { path: "incidents", element: <Navigate to="/logs" replace /> },
       { path: "incidents/:incidentId", lazy: async () => ({ Component: (await import("./pages/IncidentDetailPage")).default }) },
       { path: "logs", lazy: async () => ({ Component: (await import("./pages/LogsPage")).default }) },
       { path: "create", lazy: async () => ({ Component: (await import("./pages/CreateIncidentPage")).default }) },
@@ -20,5 +22,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return <ThemeProvider><IncidentAnalysisProvider><RouterProvider router={router} /></IncidentAnalysisProvider></ThemeProvider>;
 }

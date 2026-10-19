@@ -1,6 +1,6 @@
 # ai-incident-dashboard
 
-## Signal — Incident Intelligence
+## Incident Analyser
 
 A responsive React + TypeScript dashboard for monitoring production incidents, inspecting AI analysis, and following backend processing flow.
 
@@ -21,16 +21,15 @@ The Axios service in `src/api/incidents.ts` is the single place to adapt endpoin
 - `GET /api/v1/incidents/{id}` — load an incident
 - `POST /api/v1/incidents` — submit an incident and receive its analysis
 
-The expected response is an `IncidentEvent` as defined in `src/types/incident.ts`, with AI results nested under `analysis` and processing timestamps under `timeline`. If your backend returns a different envelope (for example `{ data: ... }`), normalize it in the service rather than in page components. The live flow-monitor view assembles event rows from incident timeline timestamps; replace this with a dedicated log/stream endpoint when the backend exposes one.
+The create response is expected to contain the analysis result. List and detail endpoints are not currently available in the backend; pages that depend on them cannot load server-side incident history. Successful incident responses, including the complete incident and analysis details, are stored in `sessionStorage` and shared between pages for the current browser tab/session. Flow monitoring derives submission and response activity from that saved data; it is not a live view of backend pipeline events.
 
 The browser connects directly to the configured backend origin. Configure Spring Boot CORS to allow the local dashboard origin (`http://localhost:5173`) and the production Vercel dashboard origin.
 
 ## Features
 
-- Overview metrics, incident activity trend, severity distribution, and recent incident drawer
-- Searchable, filterable incident monitor sorted newest first; CSV export
+- Compact navigation focused on flow monitoring, incident creation, and analysis insights
 - Full incident details with original payload JSON, model analysis, and processing timeline
-- Flow monitoring with INFO/WARN/ERROR filtering and API → Kafka → AI → response stages
+- Browser-session flow activity with INFO/WARN/ERROR filtering and an API → Kafka → AI → response architecture illustration
 - Incident submission form with loading, error, success, and returned analysis states
 - Analysis insights with confidence visualization, severity summary, root cause, and recommended actions
 - Responsive navigation and layouts for desktop, tablet, and mobile

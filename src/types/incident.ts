@@ -14,6 +14,7 @@ export interface IncidentAnalysisResult {
   recommendedActions: string[];
   rootCause?: string;
   riskExplanation?: string;
+  evidence?: string[];
 }
 
 export interface IncidentTimeline {

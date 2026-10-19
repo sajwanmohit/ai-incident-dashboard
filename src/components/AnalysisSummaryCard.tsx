@@ -21,6 +21,7 @@ export default function AnalysisSummaryCard({ analysis }: { analysis: IncidentAn
         <span className="metric-label">Recommended actions</span>
         <ul>{analysis.recommendedActions.map((action) => <li key={action}><span><Check size={12} /></span>{action}</li>)}</ul>
       </div>
+      {analysis.evidence?.length ? <div className="explanation-block"><span className="metric-label">Evidence</span><ul>{analysis.evidence.map((item) => <li key={item}>{item}</li>)}</ul></div> : null}
       {analysis.rootCause && <div className="explanation-block"><span className="metric-label"><ShieldAlert size={13} /> Root cause</span><p>{analysis.rootCause}</p></div>}
       {analysis.riskExplanation && <div className="explanation-block risk-explanation"><span className="metric-label">Risk explanation</span><p>{analysis.riskExplanation}</p></div>}
     </section>
