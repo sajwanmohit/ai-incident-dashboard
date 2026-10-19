@@ -65,6 +65,6 @@ export default function CreateIncidentPage() {
         <div className="privacy-note"><ShieldCheck size={16} /><p>Submit only operational context that your organization permits sending to its configured analysis service.</p></div>
       </aside>
     </div>
-    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident analyzed</strong><p>{result.incidentId} and its analysis were returned by the backend.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`}>View insights →</Link></div><AnalysisSummaryCard analysis={result.analysis} /></section>}
+    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident analyzed</strong><p>{result.incidentId} and its analysis were returned by the backend.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`} state={{ incident: result }}>View insights →</Link></div><AnalysisSummaryCard analysis={result.analysis} /></section>}
   </div>;
 }

@@ -42,7 +42,7 @@ export default function IncidentDetailsDrawer({ incident, onClose }: { incident:
             <pre>{JSON.stringify(incident.originalPayload, null, 2)}</pre>
           </section>
         </div>
-        <div className="drawer-footer"><Link className="button button-primary full-width" to={`/insights/${encodeURIComponent(incident.incidentId)}`} onClick={onClose}>Open full analysis <ExternalLink size={15} /></Link></div>
+        <div className="drawer-footer"><Link className="button button-primary full-width" to={`/insights/${encodeURIComponent(incident.incidentId)}`} state={{ incident }} onClick={onClose}>Open full analysis <ExternalLink size={15} /></Link></div>
       </aside>
     </div>
   );
