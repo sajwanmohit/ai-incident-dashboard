@@ -1,9 +1,13 @@
 import axios from "axios";
 
-export const useMockData = import.meta.env.VITE_USE_MOCK_DATA !== "false";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+if (!apiBaseUrl) {
+  throw new Error("VITE_API_BASE_URL must be configured for the current environment.");
+}
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8080",
+  baseURL: apiBaseUrl,
   headers: { "Content-Type": "application/json" },
   timeout: 15_000,
 });

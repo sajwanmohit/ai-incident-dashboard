@@ -65,8 +65,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .breadcrumb-slash { color: #4b566b; }
 .topbar-actions { display: flex; align-items: center; gap: 15px; }
 .connection-badge { display: flex; align-items: center; gap: 7px; padding: 5px 8px; border: 1px solid #24453f; border-radius: 5px; color: #71d3b0; background: #152923; font: 9px "DM Mono", monospace; letter-spacing: .3px; }
-.connection-mock { color: #dbb66e; background: #2a2519; border-color: #4a4128; }
-.connection-mock > span { background: #dbb66e; box-shadow: none; }
 .connection-live > span { background: #54cb9c; }
 .keyboard-hint { display: flex; align-items: center; gap: 3px; height: 24px; padding: 0 6px; border: 1px solid #2c3546; border-radius: 5px; color: #79869a; background: #141b28; font: 10px "DM Mono", monospace; }
 .top-avatar { width: 28px; height: 28px; color: #d0d7e5; background: #34445a; }
@@ -74,7 +72,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .app-footer { display: flex; justify-content: space-between; padding: 12px 34px; border-top: 1px solid #20293a; color: #687489; font-size: 9px; }
 .app-footer > span:first-child { display: flex; align-items: center; gap: 7px; }
 .footer-status { width: 5px; height: 5px; }
-.footer-status.mock { background: #dbb66e; box-shadow: none; }
 .footer-divider { margin: 0 5px; color: #424d60; }
 
 .page-view { animation: appear .24s ease-out; }
