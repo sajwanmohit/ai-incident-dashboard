@@ -4,7 +4,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { useMockData } from "../api/http";
 
 const navigation = [
   { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
@@ -42,13 +41,13 @@ export default function AppShell() {
           <button className="mobile-menu icon-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation"><Menu size={20} /></button>
           <div className="breadcrumb"><span>Workspace</span><span className="breadcrumb-slash">/</span><strong>Incident intelligence</strong></div>
           <div className="topbar-actions">
-            <span className={`connection-badge ${useMockData ? "connection-mock" : "connection-live"}`}><span />{useMockData ? "DEMO DATA" : "LIVE CONNECTION"}</span>
+            <span className="connection-badge connection-live"><span />LIVE API</span>
             <button className="keyboard-hint" aria-label="Keyboard shortcuts"><Command size={13} /><span>K</span></button>
             <div className="top-avatar">AM</div>
           </div>
         </header>
         <main className="main-content"><Outlet /></main>
-        <footer className="app-footer"><span><span className={`footer-status ${useMockData ? "mock" : ""}`} />{useMockData ? "Sample data" : "Connected to API"}</span><span>Signal <span className="footer-divider">·</span> Incident intelligence</span></footer>
+        <footer className="app-footer"><span><span className="footer-status" />Backend API</span><span>Signal <span className="footer-divider">·</span> Incident intelligence</span></footer>
       </div>
     </div>
   );

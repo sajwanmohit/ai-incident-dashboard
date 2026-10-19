@@ -8,11 +8,10 @@ A responsive React + TypeScript dashboard for monitoring production incidents, i
 
 ```bash
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
-By default, `.env.example` connects to the deployed Render backend. Copy it to `.env.local` and restart Vite after changing environment values. To use deterministic sample data instead, set `VITE_USE_MOCK_DATA=true`.
+The dashboard always connects directly to the backend; there is no sample-data mode or API proxy. Vite loads `.env.development` for local development and `.env.production` for production builds. The checked-in development environment targets `http://localhost:8080`, and the production environment targets the Render backend. Both files contain public API URLs, not secrets.
 
 ## Spring Boot integration
 
@@ -24,7 +23,7 @@ The Axios service in `src/api/incidents.ts` is the single place to adapt endpoin
 
 The expected response is an `IncidentEvent` as defined in `src/types/incident.ts`, with AI results nested under `analysis` and processing timestamps under `timeline`. If your backend returns a different envelope (for example `{ data: ... }`), normalize it in the service rather than in page components. The live flow-monitor view assembles event rows from incident timeline timestamps; replace this with a dedicated log/stream endpoint when the backend exposes one.
 
-`VITE_API_BASE_URL` is the backend origin. For local backend development, set it to `http://localhost:8080`. Configure CORS in Spring Boot to allow the Vite development origin (`http://localhost:5173`) and any deployed dashboard origin.
+The browser connects directly to the configured backend origin. Configure Spring Boot CORS to allow the local dashboard origin (`http://localhost:5173`) and the production Vercel dashboard origin.
 
 ## Features
 
