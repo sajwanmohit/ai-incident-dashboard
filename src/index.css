@@ -34,12 +34,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .brand-mark { width: 29px; height: 29px; display: grid; place-items: center; color: #0c151d; background: #56d4d0; border-radius: 9px; }
 .brand-period { color: #56d4d0; }
 .mobile-close, .mobile-menu { display: none !important; }
-.workspace-switcher { display: flex; align-items: center; padding: 10px 9px; margin: 0 0 29px; border: 1px solid #293346; background: #151c2b; border-radius: 9px; gap: 9px; }
-.workspace-avatar { width: 31px; height: 31px; display: grid; place-items: center; background: #263545; color: #80d7d2; border-radius: 7px; font-family: "Space Grotesk", sans-serif; font-size: 14px; font-weight: 700; }
-.workspace-text, .user-meta { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 3px; }
-.workspace-text strong, .user-meta strong { font-size: 11px; font-weight: 600; color: #e0e6f1; white-space: nowrap; }
-.workspace-text span, .user-meta span { color: #7e899e; font-size: 10px; white-space: nowrap; }
-.workspace-switcher > svg, .sidebar-user > svg { color: #7c879b; }
+.user-meta { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 3px; }
+.user-meta strong { font-size: 11px; font-weight: 600; color: #e0e6f1; white-space: nowrap; }
+.user-meta span { color: #7e899e; font-size: 10px; white-space: nowrap; }
 .nav-caption, .eyebrow { font-family: "DM Mono", monospace; color: #778298; font-size: 9px; font-weight: 500; letter-spacing: 1.1px; }
 .nav-caption { padding: 0 12px 10px; }
 .main-navigation { display: grid; gap: 4px; }

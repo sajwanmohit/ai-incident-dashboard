@@ -6,7 +6,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AppShell />,
-    hydrateFallbackElement: <div className="app-startup"><span className="spinner" />Loading Signal…</div>,
+    hydrateFallbackElement: <div className="app-startup"><span className="spinner" />Loading Incident Analyser…</div>,
     children: [
       { index: true, element: <Navigate to="/logs" replace /> },
       { path: "incidents", element: <Navigate to="/logs" replace /> },

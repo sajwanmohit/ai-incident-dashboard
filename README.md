@@ -1,6 +1,6 @@
 # ai-incident-dashboard
 
-## Signal — Incident Intelligence
+## Incident Analyser
 
 A responsive React + TypeScript dashboard for monitoring production incidents, inspecting AI analysis, and following backend processing flow.
 
