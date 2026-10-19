@@ -344,9 +344,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .drawer-footer { flex: 0 0 auto; padding: 12px 18px; border-top: 1px solid #252e3f; }
 .drawer-footer .button { min-height: 37px; }
 
-.insight-select { gap: 9px; }
-.insight-select > span { color: #8490a4; font-size: 9px; }
-.insight-select select { min-width: 200px; }
+.insight-picker-trigger > span { min-width: 19px; padding: 2px 5px; border-radius: 9px; color: #8ce2dc; background: #1d393d; font: 9px "DM Mono", monospace; }
+.incident-picker-backdrop { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; padding: 20px; background: rgb(4 7 16 / 76%); backdrop-filter: blur(5px); animation: wait-overlay-in .16s ease-out; }
+.incident-picker { width: min(100%, 560px); max-height: min(680px, calc(100dvh - 40px)); display: flex; flex-direction: column; padding: 19px; border: 1px solid #303b4e; box-shadow: 0 24px 80px rgb(0 0 0 / 45%); }
+.incident-picker-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+.incident-picker-header h2 { margin: 7px 0 0; color: #e8edf7; font: 600 17px "Space Grotesk", sans-serif; }
+.incident-picker-search { height: 38px; display: flex; align-items: center; gap: 9px; padding: 0 11px; margin-bottom: 10px; border: 1px solid #303a4d; border-radius: 6px; color: #8d9aaf; background: #101724; }
+.incident-picker-search input { width: 100%; border: 0; outline: 0; color: #dbe2ed; background: transparent; font-size: 10px; }
+.incident-picker-list { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.incident-picker-item { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 10px; border: 1px solid transparent; border-bottom-color: #263143; color: #cbd4e2; background: transparent; text-align: left; cursor: pointer; transition: background .15s ease, border-color .15s ease; }
+.incident-picker-item:hover, .incident-picker-item.is-active { border-color: #315052; border-radius: 6px; background: #19272f; }
+.incident-picker-item-main { min-width: 0; display: grid; gap: 4px; }
+.incident-picker-item-main strong { color: #6ed7d2; font: 10px "DM Mono", monospace; }
+.incident-picker-item-main > span { overflow: hidden; color: #e0e6f0; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.incident-picker-item-main small { color: #8996aa; font-size: 9px; }
+.incident-picker-empty { padding: 26px 12px; color: #98a5b8; font-size: 10px; text-align: center; }
 .insight-overview { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(140px, .5fr); align-items: center; gap: 26px; padding: 19px 21px; margin-bottom: 14px; }
 .insight-incident h2 { margin: 9px 0 6px; color: #e8edf6; font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 600; }
 .insight-incident p { margin: 0; color: #8b97aa; font-size: 9px; }
@@ -517,8 +529,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .drawer-content { padding: 13px; }
   .details-drawer { width: 100%; }
   .drawer-incident-head h2 { font-size: 17px; }
-  .insight-select { width: 100%; }
-  .insight-select select { min-width: 0; flex: 1; }
+  .insight-picker-trigger { width: 100%; }
   .insight-overview { grid-template-columns: minmax(0, 1fr) auto; gap: 13px; padding: 14px; }
   .insight-incident { grid-column: 1 / -1; }
   .insight-score { grid-column: 1; grid-row: 2; }
