@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { incidentApi } from "../api/incidents";
 import PageHeading from "../components/PageHeading";
+import { useIncidentAnalysis } from "../contexts/useIncidentAnalysis";
 import type { IncidentCreatePayload, IncidentEvent, IncidentSeverity } from "../types/incident";
 import { recordSessionIncidentActivity } from "../utils/sessionIncidentActivity";
 
@@ -25,6 +26,7 @@ function emptyIncidentForm(): IncidentCreatePayload {
 }
 
 export default function CreateIncidentPage() {
+  const { recordIncident } = useIncidentAnalysis();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [activityWarning, setActivityWarning] = useState("");
@@ -41,6 +43,7 @@ export default function CreateIncidentPage() {
     const submittedAt = new Date().toISOString();
     try {
       const incident = await incidentApi.create({ ...form, timestamp: new Date(form.timestamp).toISOString() });
+      recordIncident(incident);
       setResult(incident);
       setForm(emptyIncidentForm());
       try {
@@ -83,6 +86,6 @@ export default function CreateIncidentPage() {
         <div className="privacy-note"><ShieldCheck size={16} /><p>Submit only operational context that your organization permits sending to its configured analysis service.</p></div>
       </aside>
     </div>
-    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident analyzed</strong><p>{result.incidentId} was submitted successfully. The form is ready for another incident.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`} state={{ incident: result }}>View analysis insights →</Link></div></section>}
+    {result && <section className="submission-result"><div className="success-banner"><CheckCircle2 size={18} /><div><strong>Incident analyzed</strong><p>{result.incidentId} was submitted successfully. The form is ready for another incident.</p></div><Link className="text-link" to={`/insights/${encodeURIComponent(result.incidentId)}`}>View analysis insights →</Link></div></section>}
   </div>;
 }
