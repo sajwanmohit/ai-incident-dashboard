@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useIncidentAnalysis } from "../contexts/useIncidentAnalysis";
 
 const navigation = [
   { to: "/logs", label: "Flow monitoring", icon: Activity, end: true },
@@ -13,6 +14,7 @@ const navigation = [
 
 export default function AppShell() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { sessionError } = useIncidentAnalysis();
   return (
     <div className="app-shell">
       <div className={`sidebar-overlay ${menuOpen ? "is-open" : ""}`} onClick={() => setMenuOpen(false)} />
@@ -44,7 +46,7 @@ export default function AppShell() {
             <div className="top-avatar">AM</div>
           </div>
         </header>
-        <main className="main-content"><Outlet /></main>
+        <main className="main-content">{sessionError && <div className="error-banner"><span>Saved incident details could not be restored from this browser session: {sessionError}</span></div>}<Outlet /></main>
         <footer className="app-footer"><span><span className="footer-status" />Backend API</span><span>Signal <span className="footer-divider">·</span> Incident intelligence</span></footer>
       </div>
     </div>
